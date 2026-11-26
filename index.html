@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سريع سيناء | للدليفري الداخلي والمواصلات الخارجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b2545;
+            --primary-light: #134074;
+            --accent: #ff6b00;
+            --accent-hover: #e05e00;
+            --whatsapp: #25D366;
+            --whatsapp-hover: #1ebe5d;
+            --bg-light: #f4f7f6;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        header {
+            background-color: var(--white);
+            padding: 0.9rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-badge {
+            background: var(--accent);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .call-btn {
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .call-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.88), rgba(19, 64, 116, 0.82)), 
+                        url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 4.5rem 1.5rem 6.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #e2e8f0;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        /* Main Booking Widget (Go Bus Style) */
+        .booking-wrapper {
+            max-width: 1000px;
+            margin: -4.2rem auto 3.5rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .booking-card {
+            background: var(--white);
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11, 37, 69, 0.12);
+            overflow: hidden;
+        }
+
+        .service-tabs {
+            display: flex;
+            background: #eef2f6;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1.2rem;
+            border: none;
+            background: transparent;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--white);
+            color: var(--primary);
+            border-top: 4px solid var(--accent);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Go Bus Route Selector Grid */
+        .route-bar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: end;
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .swap-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            margin-bottom: 2px;
+        }
+
+        .swap-btn:hover {
+            background: var(--accent);
+            transform: rotate(180deg);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 0.92rem;
+            margin-bottom: 0.4rem;
+            color: var(--primary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            transition: 0.25s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.12);
+        }
+
+        .alert-msg {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.05rem;
+            background: var(--whatsapp);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+        }
+
+        .submit-btn:hover {
+            background: var(--whatsapp-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Popular Destinations Section */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dest-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dest-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        .dest-img {
+            height: 170px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .dest-body {
+            padding: 1.3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dest-tag {
+            display: inline-block;
+            background: #fff3e6;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+            width: fit-content;
+        }
+
+        .dest-body h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .dest-body p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .book-route-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .book-route-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Features Strip */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-box h4 {
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-wa {
+            position: fixed;
+            bottom: 22px;
+            left: 22px;
+            background: var(--whatsapp);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+            transition: 0.3s;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.05);
+            background: var(--whatsapp-hover);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 3rem;
+        }
+
+        footer .footer-phone {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0.5rem 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .route-bar {
+                grid-template-columns: 1fr;
+            }
+            .swap-btn {
+                margin: 0 auto;
+                transform: rotate(90deg);
+            }
+            .swap-btn:hover {
+                transform: rotate(270deg);
+            }
+            .tab-btn { font-size: 1rem; padding: 1rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <span class="logo-badge">سريع</span> سيناء
+        </a>
+        <div class="header-actions">
+            <a href="tel:01025888981" class="call-btn">
+                📞 01025888981
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>احجز رحلتك أو اطلب دليفري في <span>ثوانٍ</span></h1>
+        <p>مواصلات خارجية مريحة ومكيفة بين السويس، رأس سدر، الطور، وشرم الشيخ — وخدمة دليفري داخلي سريعة على مدار 24 ساعة.</p>
+    </section>
+
+    <!-- Main Booking Card -->
+    <div class="booking-wrapper" id="booking-box">
+        <div class="booking-card">
+            <div class="service-tabs">
+                <button class="tab-btn active" onclick="switchTab('travel')">
+                    🚌 حجز مواصلات خارجية
+                </button>
+                <button class="tab-btn" onclick="switchTab('delivery')">
+                    🛵 طلب دليفري داخلي
+                </button>
+            </div>
+
+            <!-- 1. Travel Form (Go Bus Style) -->
+            <form id="travel-form" class="tab-content active" onsubmit="bookTravel(event)">
+                <div class="route-bar">
+                    <div class="form-group">
+                        <label>محطة القيام (من):</label>
+                        <select id="from-city" required>
+                            <option value="السويس">السويس</option>
+                            <option value="رأس سدر" selected>رأس سدر</option>
+                            <option value="الطور">الطور</option>
+                            <option value="شرم الشيخ">شرم الشيخ</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="swap-btn" onclick="swapCities()" title="تبديل الاتجاه">
+                        ⇄
+                    </button>
+
+                    <div class="form-group">
+                        <label>محطة الوصول (إلى):</label>
+                        <select id="to-city" required>
+                            <option value="السويس" selected>السويس</option>
+                            <option value="رأس سدر">رأس سدر</option>
+                            <option value="الطور">الطور</option>
+                            <option value="شرم الشيخ">شرم الشيخ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="route-error" class="alert-msg">
+                    ⚠️ يرجى اختيار خط سير صحيح من الخطوط المتاحة (السويس ⇄ رأس سدر، أو رأس سدر ➔ الطور / شرم الشيخ).
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>تاريخ السفر:</label>
+                        <input type="date" id="travel-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>موعد التحرك المفضل:</label>
+                        <input type="time" id="travel-time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع السيارة:</label>
+                        <select id="car-type">
+                            <option value="ميكروباص سياحي مكيف">ميكروباص سياحي مكيف</option>
+                            <option value="سيارة ملاكي خاصة (VIP)">سيارة ملاكي خاصة (VIP)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>عدد الركاب:</label>
+                        <select id="passengers">
+                            <option value="1 فرد">1 فرد</option>
+                            <option value="2 أفراد">2 أفراد</option>
+                            <option value="3 أفراد">3 أفراد</option>
+                            <option value="4 أفراد">4 أفراد</option>
+                            <option value="مجموعة / عائلة (أكثر من 4)">مجموعة / عائلة (أكثر من 4)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>اسم العميل:</label>
+                        <input type="text" id="t-name" placeholder="اكتب اسمك بالكامل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>رقم الموبايل للتواصل:</label>
+                        <input type="tel" id="t-phone" placeholder="01xxxxxxxxx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نقطة الركوب / ملاحظات:</label>
+                        <input type="text" id="t-notes" placeholder="مثال: أمام الموقف، معي شنط...">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    تأكيد الحجز وإرسال عبر واتساب 📲
+                </button>
+            </form>
+
+            <!-- 2. Internal Delivery Form -->
+            <form id="delivery-form" class="tab-content" onsubmit="bookDelivery(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>الاسم:</label>
+                        <input type="text" id="d-name" placeholder="اكتب اسمك" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>رقم الموبايل:</label>
+                        <input type="tel" id="d-phone" placeholder="01xxxxxxxxx" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>استلام الطلب من (المكان / المحل):</label>
+                        <input type="text" id="d-from" placeholder="اسم المطعم، الصيدلية، السوبر ماركت..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>توصيل الطلب إلى (عنوانك):</label>
+                        <input type="text" id="d-to" placeholder="الحي، الشارع، رقم العمارة أو الشاليه" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>تفاصيل الطلب:</label>
+                    <textarea id="d-details" rows="3" placeholder="اكتب كل طلباتك بالتفصيل هنا..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    اطلب الدليفري الآن عبر واتساب 🛵
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Destinations Section with Images -->
+    <section class="section">
+        <div class="section-header">
+            <h2>خطوط المواصلات المتاحة</h2>
+            <p>اختر وجهتك مباشرة وسيتم تجهيز بيانات الحجز لك تلقائياً</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="رأس سدر" class="dest-img">
+                <div class="dest-body">
+                    <div>
+                        <span class="dest-tag">خط يومي سريع</span>
+                        <h3>من السويس إلى رأس سدر</h3>
+                        <p>رحلات منتظمة على مدار اليوم بسيارات حديثة ومكيفة.</p>
+                    </div>
+                    <button class="book-route-btn" onclick="selectRoute('السويس', 'رأس سدر')">احجز هذا الخط</button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=600&q=80" alt="السويس" class="dest-img">
+                <div class="dest-body">
+                    <div>
+                        <span class="dest-tag">ذهاب وعودة</span>
+                        <h3>من رأس سدر إلى السويس</h3>
+                        <p>انطلاق سريع والتزام تام بالمواعيد وتوصيل لأقرب نقطة.</p>
+                    </div>
+                    <button class="book-route-btn" onclick="selectRoute('رأس سدر', 'السويس')">احجز هذا الخط</button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" alt="الطور" class="dest-img">
+                <div class="dest-body">
+                    <div>
+                        <span class="dest-tag">جنوب سيناء</span>
+                        <h3>من رأس سدر إلى الطور</h3>
+                        <p>سفر مريح وآمن على طريق جنوب سيناء بأفضل الأسعار.</p>
+                    </div>
+                    <button class="book-route-btn" onclick="selectRoute('رأس سدر', 'الطور')">احجز هذا الخط</button>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="شرم الشيخ" class="dest-img">
+                <div class="dest-body">
+                    <div>
+                        <span class="dest-tag">رحلات سياحية</span>
+                        <h3>من رأس سدر إلى شرم الشيخ</h3>
+                        <p>استمتع برحلة مريحة ومكيفة مباشرة إلى شرم الشيخ.</p>
+                    </div>
+                    <button class="book-route-btn" onclick="selectRoute('رأس سدر', 'شرم الشيخ')">احجز هذا الخط</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">❄️</div>
+                <h4>سيارات حديثة ومكيفة</h4>
+                <p>أسطول مجهز لراحتك في المسافات الطويلة</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">⚡</div>
+                <h4>دليفري فوري 24/7</h4>
+                <p>توصيل كافة الطلبات والمشتريات في أسرع وقت</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🛡️</div>
+                <h4>أمان والتزام بالمواعيد</h4>
+                <p>سائقون محترفون وعلى دراية كاملة بجميع الطرق</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/201025888981" target="_blank" class="floating-wa">
+        💬 تواصل واتساب مباشرة
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <h3>سريع سيناء للدليفري والمواصلات</h3>
+        <p>للحجز السريع والاستفسارات على مدار الساعة:</p>
+        <a href="tel:01025888981" class="footer-phone">📞 01025888981</a>
+        <p style="font-size: 0.85rem; margin-top: 1rem; color: #94a3b8;">جميع الحقوق محفوظة &copy; 2026</p>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = "201025888981";
+
+        // Set default date to today
+        document.getElementById('travel-date').valueAsDate = new Date();
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'travel') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('travel-form').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('delivery-form').classList.add('active');
+            }
+        }
+
+        function swapCities() {
+            const fromSelect = document.getElementById('from-city');
+            const toSelect = document.getElementById('to-city');
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+            document.getElementById('route-error').style.display = 'none';
+        }
+
+        function selectRoute(fromCity, toCity) {
+            switchTab('travel');
+            document.getElementById('from-city').value = fromCity;
+            document.getElementById('to-city').value = toCity;
+            document.getElementById('route-error').style.display = 'none';
+            document.getElementById('booking-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function bookTravel(e) {
+            e.preventDefault();
+            const from = document.getElementById('from-city').value;
+            const to = document.getElementById('to-city').value;
+            const errorBox = document.getElementById('route-error');
+
+            // Validate allowed routes
+            const validRoutes = [
+                "السويس-رأس سدر",
+                "رأس سدر-السويس",
+                "رأس سدر-الطور",
+                "رأس سدر-شرم الشيخ"
+            ];
+
+            if (!validRoutes.includes(`${from}-${to}`)) {
+                errorBox.style.display = 'block';
+                return;
+            }
+            errorBox.style.display = 'none';
+
+            const date = document.getElementById('travel-date').value;
+            const time = document.getElementById('travel-time').value;
+            const carType = document.getElementById('car-type').value;
+            const passengers = document.getElementById('passengers').value;
+            const name = document.getElementById('t-name').value;
+            const phone = document.getElementById('t-phone').value;
+            const notes = document.getElementById('t-notes').value || "لا يوجد";
+
+            const message = `*حجز مواصلات خارجية جديد* 🚌%0A%0A` +
+                            `📍 *من:* ${from}%0A` +
+                            `🏁 *إلى:* ${to}%0A` +
+                            `📅 *التاريخ:* ${date}%0A` +
+                            `⏰ *الوقت:* ${time}%0A` +
+                            `🚘 *نوع السيارة:* ${carType}%0A` +
+                            `👥 *عدد الأفراد:* ${passengers}%0A` +
+                            `👤 *الاسم:* ${name}%0A` +
+                            `📱 *الموبايل:* ${phone}%0A` +
+                            `📝 *ملاحظات:* ${notes}`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function bookDelivery(e) {
+            e.preventDefault();
+            const name = document.getElementById('d-name').value;
+            const phone = document.getElementById('d-phone').value;
+            const from = document.getElementById('d-from').value;
+            const to = document.getElementById('d-to').value;
+            const details = document.getElementById('d-details').value;
+
+            const message = `*طلب دليفري داخلي جديد* 🛵%0A%0A` +
+                            `👤 *الاسم:* ${name}%0A` +
+                            `📱 *الموبايل:* ${phone}%0A` +
+                            `🏪 *استلام من:* ${from}%0A` +
+                            `🏠 *توصيل إلى:* ${to}%0A` +
+                            `📦 *تفاصيل الطلب:* ${details}`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
